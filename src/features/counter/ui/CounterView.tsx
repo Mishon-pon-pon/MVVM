@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useCounterViewModel } from "../viewModel/useCounterViewModel";
+import { Button } from "@/shared/ui/Button";
 
 function burnCpu(ms: number) {
   const start = performance.now();
@@ -13,10 +14,13 @@ export const CounterView: React.FC = () => {
   const { value, step, canDecrement, increment, decrement, setStep, reset } =
     useCounterViewModel();
 
-  burnCpu(1250);
+  // burnCpu(1250);
+  const onIncrement = useCallback(increment, []);
+  const onDecrement = useCallback(decrement, []);
+  const onReset = useCallback(reset, []);
 
   return (
-    <section>
+    <section className="p-[10px]">
       <h1>Counter</h1>
 
       <p>Value: {value}</p>
@@ -24,9 +28,9 @@ export const CounterView: React.FC = () => {
       <label>
         Step:{" "}
         <input
+          className="border rounded-sm pl-[4px]"
           type="number"
           value={step}
-          min={1}
           onChange={(e) => {
             const parsed = Number(e.target.value);
             setStep(Number.isNaN(parsed) ? 1 : parsed);
@@ -35,15 +39,9 @@ export const CounterView: React.FC = () => {
       </label>
 
       <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
-        <button type="button" onClick={increment}>
-          +
-        </button>
-        <button type="button" onClick={decrement} disabled={!canDecrement}>
-          -
-        </button>
-        <button type="button" onClick={reset}>
-          Reset
-        </button>
+        <Button onClick={onIncrement}>+</Button>
+        <Button onClick={onDecrement}>-</Button>
+        <Button onClick={onReset}>Reset</Button>
       </div>
     </section>
   );
