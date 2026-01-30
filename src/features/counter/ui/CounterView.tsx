@@ -1,9 +1,19 @@
 import React from "react";
 import { useCounterViewModel } from "../viewModel/useCounterViewModel";
 
+function burnCpu(ms: number) {
+  const start = performance.now();
+  while (performance.now() - start < ms) {
+    // busy loop
+    Math.random();
+  }
+}
+
 export const CounterView: React.FC = () => {
   const { value, step, canDecrement, increment, decrement, setStep, reset } =
     useCounterViewModel();
+
+  burnCpu(1250);
 
   return (
     <section>
