@@ -11,7 +11,7 @@ const CounterView = React.lazy(() =>
 
 export const App = () => {
   return (
-    <div className="p-[16px]">
+    <div className="p-4">
       <Nav />
       <div style={{ margin: "24px" }} />
       <Routes>

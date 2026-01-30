@@ -1,9 +1,8 @@
-import type { FC } from "react";
+import type { ButtonHTMLAttributes, FC } from "react";
 import React from "react";
 
-interface IProps {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick: () => void;
 }
 
 export const Button: FC<IProps> = React.memo((props) => {
