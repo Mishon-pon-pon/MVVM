@@ -5,11 +5,14 @@ import { store } from "./app/store";
 import { App } from "./App";
 import { onLCP } from "web-vitals";
 import type { LCPMetric } from "web-vitals";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
 );
