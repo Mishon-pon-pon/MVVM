@@ -33,11 +33,15 @@ jobs:
           npm run build
         env:
           CI: true
+          # Путь для GitHub Pages: https://<user>.github.io/<repo>/
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      - name: Prepare 404 for SPA routing
+        run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Vite кладёт сборку сюда
           path: ./dist
 
       - name: Deploy to GitHub Pages
