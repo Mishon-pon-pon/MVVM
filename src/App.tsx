@@ -13,7 +13,7 @@ export const App = () => {
   return (
     <div className="p-4">
       <Nav />
-      <div style={{ margin: "24px" }} />
+      <div className="mb-6" />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/counter" element={<CounterView />} />
