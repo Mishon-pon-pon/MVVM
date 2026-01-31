@@ -1,20 +1,13 @@
 import React, { useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useCounterViewModel } from "../viewModel/useCounterViewModel";
 import { Button } from "@/shared/ui/Button";
 
-// function burnCpu(ms: number) {
-//   const start = performance.now();
-//   while (performance.now() - start < ms) {
-//     // busy loop
-//     Math.random();
-//   }
-// }
-
 export const CounterView: React.FC = () => {
+  const { t } = useTranslation();
   const { value, step, canDecrement, increment, decrement, setStep, reset } =
     useCounterViewModel();
 
-  // burnCpu(1250);
   const onIncrement = useCallback(increment, [increment]);
   const onDecrement = useCallback(decrement, [decrement]);
   const onReset = useCallback(reset, [reset]);
@@ -22,12 +15,14 @@ export const CounterView: React.FC = () => {
 
   return (
     <section className="p-2.5">
-      <h1>Counter</h1>
+      <h1>{t("counter.title")}</h1>
 
-      <p>Value: {value}</p>
+      <p>
+        {t("counter.value")}: {value}
+      </p>
 
       <label>
-        Step:{" "}
+        {t("counter.step")}:{" "}
         <input
           className="border rounded-sm pl-1"
           type="number"
@@ -44,7 +39,7 @@ export const CounterView: React.FC = () => {
         <Button disabled={decrementDisabled} onClick={onDecrement}>
           -
         </Button>
-        <Button onClick={onReset}>Reset</Button>
+        <Button onClick={onReset}>{t("counter.reset")}</Button>
       </div>
     </section>
   );

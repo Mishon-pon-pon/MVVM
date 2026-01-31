@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { App } from "./App";
+import "./app/i18n";
 
 import { BrowserRouter } from "react-router-dom";
 import { showWebVitals } from "./web-vitals";
@@ -14,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 showWebVitals();

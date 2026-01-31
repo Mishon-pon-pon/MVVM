@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "counter": "Counter",
+    "language": "Language"
+  },
+  "home": {
+    "title": "This is Home Page"
+  },
+  "counter": {
+    "title": "Counter",
+    "value": "Value",
+    "step": "Step",
+    "reset": "Reset"
+  }
+}
