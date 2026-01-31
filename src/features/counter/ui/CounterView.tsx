@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useCounterViewModel } from "../viewModel/useCounterViewModel";
 import { Button } from "@/shared/ui/Button";
@@ -7,11 +7,6 @@ export const CounterView: React.FC = () => {
   const { t } = useTranslation();
   const { value, step, canDecrement, increment, decrement, setStep, reset } =
     useCounterViewModel();
-
-  const onIncrement = useCallback(increment, [increment]);
-  const onDecrement = useCallback(decrement, [decrement]);
-  const onReset = useCallback(reset, [reset]);
-  const decrementDisabled = useMemo(() => !canDecrement, [canDecrement]);
 
   return (
     <section className="p-2.5">
@@ -35,11 +30,11 @@ export const CounterView: React.FC = () => {
       </label>
 
       <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
-        <Button onClick={onIncrement}>+</Button>
-        <Button disabled={decrementDisabled} onClick={onDecrement}>
+        <Button onClick={increment}>+</Button>
+        <Button disabled={!canDecrement} onClick={decrement}>
           -
         </Button>
-        <Button onClick={onReset}>{t("counter.reset")}</Button>
+        <Button onClick={reset}>{t("counter.reset")}</Button>
       </div>
     </section>
   );

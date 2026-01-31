@@ -1,12 +1,7 @@
 import { describe, it, expect } from "vitest";
-import counterReducer, {
-  decrement,
-  increment,
-  reset,
-  setStep,
-} from "./counterSlice";
+import counterReducer, { setStep, setValue } from "./counterSlice";
 
-describe("counterSlice", () => {
+describe("counterSlice (примитивное хранилище)", () => {
   const initialState = { value: 0, step: 1 };
 
   it("returns initial state", () => {
@@ -15,40 +10,23 @@ describe("counterSlice", () => {
     );
   });
 
-  it("increment increases value by step", () => {
-    expect(counterReducer(initialState, increment())).toEqual({
-      value: 1,
+  it("setValue updates value", () => {
+    expect(counterReducer(initialState, setValue(5))).toEqual({
+      value: 5,
       step: 1,
-    });
-    const withStep = { value: 10, step: 3 };
-    expect(counterReducer(withStep, increment())).toEqual({
-      value: 13,
-      step: 3,
-    });
-  });
-
-  it("decrement decreases value by step", () => {
-    const state = { value: 5, step: 1 };
-    expect(counterReducer(state, decrement())).toEqual({
-      value: 4,
-      step: 1,
-    });
-    const withStep = { value: 10, step: 3 };
-    expect(counterReducer(withStep, decrement())).toEqual({
-      value: 7,
-      step: 3,
     });
   });
 
   it("setStep updates step", () => {
-    expect(counterReducer(initialState, setStep(5))).toEqual({
+    expect(counterReducer(initialState, setStep(3))).toEqual({
       value: 0,
-      step: 5,
+      step: 3,
     });
   });
 
-  it("reset returns initial state", () => {
-    const state = { value: 100, step: 7 };
-    expect(counterReducer(state, reset())).toEqual(initialState);
+  it("setValue and setStep are independent", () => {
+    const state = { value: 10, step: 2 };
+    expect(counterReducer(state, setValue(0))).toEqual({ value: 0, step: 2 });
+    expect(counterReducer(state, setStep(1))).toEqual({ value: 10, step: 1 });
   });
 });

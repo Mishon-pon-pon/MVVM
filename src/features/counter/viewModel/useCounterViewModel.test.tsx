@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "@/app/store";
-import { reset } from "../model/counterSlice";
+import { setValue, setStep } from "../model/counterSlice";
 import { useCounterViewModel } from "./useCounterViewModel";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -11,7 +11,8 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("useCounterViewModel", () => {
   beforeEach(() => {
-    store.dispatch(reset());
+    store.dispatch(setValue(0));
+    store.dispatch(setStep(1));
   });
 
   it("returns initial value and step", () => {

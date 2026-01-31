@@ -11,25 +11,22 @@ const initialState: CounterState = {
   step: 1,
 };
 
+/**
+ * Слайс — только примитивное хранилище (setValue, setStep).
+ * Вся бизнес-логика (increment, decrement, reset, валидация) в CounterModel.
+ */
 const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    increment(state) {
-      state.value += state.step;
-    },
-    decrement(state) {
-      state.value -= state.step;
+    setValue(state, action: PayloadAction<number>) {
+      state.value = action.payload;
     },
     setStep(state, action: PayloadAction<number>) {
       state.step = action.payload;
     },
-    reset(state) {
-      state.value = 0;
-      state.step = 1;
-    },
   },
 });
 
-export const { increment, decrement, setStep, reset } = counterSlice.actions;
+export const { setValue, setStep } = counterSlice.actions;
 export default counterSlice.reducer;

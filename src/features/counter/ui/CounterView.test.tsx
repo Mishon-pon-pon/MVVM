@@ -1,14 +1,15 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen, userEvent, fireEvent } from "@/testing/test-utils";
 import { store } from "@/app/store";
-import { reset } from "../model/counterSlice";
+import { setValue, setStep } from "../model/counterSlice";
 import { CounterView } from "./CounterView";
 
 const user = userEvent.setup();
 
 describe("CounterView", () => {
   beforeEach(() => {
-    store.dispatch(reset());
+    store.dispatch(setValue(0));
+    store.dispatch(setStep(1));
   });
 
   it("renders counter title and initial value", () => {

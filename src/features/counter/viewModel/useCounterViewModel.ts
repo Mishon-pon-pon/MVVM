@@ -1,57 +1,69 @@
-import { useCallback, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { decrement, increment, reset, setStep } from "../model/counterSlice";
-import {
-  selectCounterStep,
-  selectCounterValue,
-} from "../model/counterSelectors";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
+import { store } from "@/app/store";
+import { CounterModel } from "../model/CounterModel";
+import { ReduxCounterStoreAdapter } from "../model/adapters/ReduxCounterStoreAdapter";
 
-export const useCounterViewModel = () => {
-  const dispatch = useAppDispatch();
-  const value = useAppSelector(selectCounterValue);
-  const step = useAppSelector(selectCounterStep);
+const adapter = new ReduxCounterStoreAdapter(store);
+const model = new CounterModel(adapter);
 
+function getSnapshot(): { value: number; step: number; canDecrement: boolean } {
+  const value = adapter.getValue();
+  const step = adapter.getStep();
   const canDecrement = value > 0;
+  return { value, step, canDecrement };
+}
 
-  const handleIncrement = useCallback(() => {
-    dispatch(increment());
-  }, [dispatch]);
+function subscribe(callback: () => void): () => void {
+  return adapter.subscribe(callback);
+}
 
-  const handleDecrement = useCallback(() => {
-    if (!canDecrement) return;
-    dispatch(decrement());
-  }, [dispatch, canDecrement]);
+/** Кэш снапшота: новая ссылка только при изменении value/step. */
+function getCachedSnapshot() {
+  const next = getSnapshot();
+  const cache = getCachedSnapshot.cache;
+  if (
+    cache &&
+    cache.value === next.value &&
+    cache.step === next.step &&
+    cache.canDecrement === next.canDecrement
+  ) {
+    return cache;
+  }
+  getCachedSnapshot.cache = next;
+  return next;
+}
+getCachedSnapshot.cache = null as {
+  value: number;
+  step: number;
+  canDecrement: boolean;
+} | null;
 
-  const handleStepChange = useCallback(
-    (next: number) => {
-      if (next <= 0) return;
-      dispatch(setStep(next));
-    },
-    [dispatch],
+/**
+ * ViewModel: модель независима от Redux; адаптер подключается здесь.
+ * Колбэки стабильны (useCallback), чтобы кнопки не ре-рендерились лишний раз.
+ */
+export const useCounterViewModel = () => {
+  const { value, step, canDecrement } = useSyncExternalStore(
+    subscribe,
+    getCachedSnapshot,
+    getCachedSnapshot
   );
 
-  const handleReset = useCallback(() => {
-    dispatch(reset());
-  }, [dispatch]);
+  const increment = useCallback(() => model.increment(), []);
+  const decrement = useCallback(() => model.decrement(), []);
+  const setStepCb = useCallback((next: number) => model.setStep(next), []);
+  const reset = useCallback(() => model.reset(), []);
 
   return useMemo(
     () => ({
       value,
       step,
       canDecrement,
-      increment: handleIncrement,
-      decrement: handleDecrement,
-      setStep: handleStepChange,
-      reset: handleReset,
+      increment,
+      decrement,
+      setStep: setStepCb,
+      reset,
     }),
-    [
-      value,
-      step,
-      canDecrement,
-      handleIncrement,
-      handleDecrement,
-      handleStepChange,
-      handleReset,
-    ],
+    [value, step, canDecrement, increment, decrement, setStepCb, reset]
   );
 };
