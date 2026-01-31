@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "@/app/store";
-import { setValue, setStep } from "../model/counterSlice";
+import { setValue, setStep } from "../model/counterStore/counterSlice";
 import { useCounterViewModel } from "./useCounterViewModel";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
