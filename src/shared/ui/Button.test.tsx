@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, userEvent } from "@/test-utils";
+import { render, screen, userEvent } from "@/testing/test-utils";
 
 const user = userEvent.setup();
 import { Button } from "./Button";

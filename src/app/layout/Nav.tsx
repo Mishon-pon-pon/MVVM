@@ -2,7 +2,7 @@ import type { FC } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { supportedLocales, type SupportedLocale } from "./i18n";
+import { supportedLocales, type SupportedLocale } from "@/app/i18n";
 
 interface IProps {}
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, userEvent, fireEvent } from "@/test-utils";
+import { render, screen, userEvent, fireEvent } from "@/testing/test-utils";
 import { store } from "@/app/store";
 import { reset } from "../model/counterSlice";
 import { CounterView } from "./CounterView";

@@ -1,23 +1,15 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { HomePage } from "./features/counter/ui/HomePage";
-import { Nav } from "@/app/Nav";
-
-const CounterView = React.lazy(() =>
-  import("./features/counter/ui/CounterView").then((res) => ({
-    default: res.CounterView,
-  })),
-);
+import { Nav } from "@/app/layout/Nav";
+import { AppRoutes } from "@/app/routes";
 
 export const App = () => {
   return (
     <div className="p-4">
       <Nav />
       <div className="mb-6" />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/counter" element={<CounterView />} />
-      </Routes>
+      <React.Suspense fallback={null}>
+        <AppRoutes />
+      </React.Suspense>
     </div>
   );
 };

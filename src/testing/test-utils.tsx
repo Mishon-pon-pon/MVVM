@@ -2,7 +2,7 @@ import React, { type ReactElement } from "react";
 import { render, type RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./app/store";
+import { store } from "@/app/store";
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
   <Provider store={store}>
