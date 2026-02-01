@@ -8,7 +8,12 @@ import tailwindcss from "@tailwindcss/vite";
 const base = process.env.BASE_PATH ?? "/mvvm/";
 
 export default defineConfig({
-  base: base.endsWith("/") ? base : base + "/",
+  base:
+    process.env.NODE_ENV === "production"
+      ? base.endsWith("/")
+        ? base
+        : base + "/"
+      : "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
