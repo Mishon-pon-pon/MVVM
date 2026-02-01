@@ -40,7 +40,7 @@ export const Button = React.memo(
     }
 
     return (
-      <Component className={className} ref={ref} {...rest}>
+      <Component ref={ref} {...rest} className={className}>
         {children}
       </Component>
     );
