@@ -51,6 +51,7 @@ const server = http.createServer((req, res) => {
         res.end("Not Found");
         return;
       }
+
       sendFile(filePath, mime);
     });
   } else {
