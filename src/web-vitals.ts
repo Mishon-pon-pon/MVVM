@@ -13,6 +13,7 @@ const handleMetric = (metric: Metric) => {
     case "CLS":
       console.log(base, metric.value, metric); // без ms, это не время
       break;
+
     default:
       console.log(base, metric.value, metric);
   }
