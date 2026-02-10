@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useCounterViewModel } from "../viewModel/useCounterViewModel";
+import { useCounterViewModel } from "../../../entities/counter/viewModel/useCounterViewModel";
 import { Button } from "@/shared/ui/Button";
 
 export const CounterView: React.FC = () => {
@@ -11,10 +11,6 @@ export const CounterView: React.FC = () => {
   return (
     <section className="p-2.5">
       <h1>{t("counter.title")}</h1>
-
-      <p>
-        {t("counter.value")}: {value}
-      </p>
 
       <label>
         {t("counter.step")}:{" "}

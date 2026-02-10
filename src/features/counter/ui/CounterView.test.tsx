@@ -1,7 +1,10 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen, userEvent, fireEvent } from "@/testing/test-utils";
 import { store } from "@/app/store";
-import { setValue, setStep } from "../model/counterStore/counterSlice";
+import {
+  setValue,
+  setStep,
+} from "@/entities/counter/model/counterStore/counterSlice";
 import { CounterView } from "./CounterView";
 
 const user = userEvent.setup();
