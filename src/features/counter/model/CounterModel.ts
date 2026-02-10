@@ -20,12 +20,12 @@ export class CounterModel {
   }
 
   increment(): void {
-    this.store.setValue(this.store.getValue() + this.store.getStep());
+    this.store.setValue(this.value + this.step);
   }
 
   decrement(): void {
     if (!this.canDecrement) return;
-    this.store.setValue(this.store.getValue() - this.store.getStep());
+    this.store.setValue(this.value - this.step);
   }
 
   setStep(next: number): void {

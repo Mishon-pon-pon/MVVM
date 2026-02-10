@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { HomePage } from "@/app/pages/HomePage";
+import { HomePage } from "@/pages/HomePage";
 
 const CounterView = React.lazy(() =>
   import("@/features/counter/ui/CounterView").then((res) => ({
